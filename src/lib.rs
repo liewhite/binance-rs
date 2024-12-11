@@ -18,6 +18,7 @@
 mod client;
 pub mod errors;
 pub mod util;
+pub mod portfolio;
 
 pub mod model;
 

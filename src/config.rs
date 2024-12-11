@@ -6,6 +6,7 @@ pub struct Config {
     pub futures_rest_api_endpoint: String,
     pub futures_ws_endpoint: String,
 
+    pub portfolio_rest_api_endpoint: String,
     pub recv_window: u64,
 }
 
@@ -18,6 +19,7 @@ impl Default for Config {
             futures_rest_api_endpoint: "https://fapi.binance.com".into(),
             futures_ws_endpoint: "wss://fstream.binance.com/ws".into(),
 
+            portfolio_rest_api_endpoint: "https://papi.binance.com".into(),
             recv_window: 5000,
         }
     }

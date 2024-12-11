@@ -7,6 +7,7 @@ use crate::futures::market::FuturesMarket;
 use crate::futures::userstream::FuturesUserStream;
 use crate::general::General;
 use crate::market::Market;
+use crate::portfolio::account::PortfolioAccount;
 use crate::userstream::UserStream;
 use crate::savings::Savings;
 
@@ -15,6 +16,7 @@ pub enum API {
     Spot(Spot),
     Savings(Sapi),
     Futures(Futures),
+    Portfolio(Portfolio),
 }
 
 /// Endpoint for production and test orders.
@@ -95,6 +97,12 @@ pub enum Futures {
     Income,
 }
 
+pub enum Portfolio {
+    PositionRisk,
+    Order,
+    Balance
+}
+
 impl From<API> for String {
     fn from(item: API) -> Self {
         String::from(match item {
@@ -169,6 +177,13 @@ impl From<API> for String {
                 Futures::OpenOrders => "/fapi/v1/openOrders",
                 Futures::UserDataStream => "/fapi/v1/listenKey",
                 Futures::Income => "/fapi/v1/income",
+            },
+            API::Portfolio(portfolio) => {
+                match portfolio {
+                    Portfolio::PositionRisk => "/papi/v1/um/positionRisk",
+                    Portfolio::Order => "/papi/v1/um/order",
+                    Portfolio::Balance => "/papi/v1/balance",
+                }
             },
         })
     }
@@ -309,6 +324,25 @@ impl Binance for FuturesAccount {
                 api_key,
                 secret_key,
                 config.futures_rest_api_endpoint.clone(),
+            ),
+            recv_window: config.recv_window,
+        }
+    }
+}
+
+impl Binance for PortfolioAccount {
+    fn new(api_key: Option<String>, secret_key: Option<String>) -> Self {
+        Self::new_with_config(api_key, secret_key, &Config::default())
+    }
+
+    fn new_with_config(
+        api_key: Option<String>, secret_key: Option<String>, config: &Config,
+    ) -> Self {
+        Self {
+            client: Client::new(
+                api_key,
+                secret_key,
+                config.portfolio_rest_api_endpoint.clone(),
             ),
             recv_window: config.recv_window,
         }
