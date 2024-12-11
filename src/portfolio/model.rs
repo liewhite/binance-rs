@@ -291,8 +291,11 @@ pub struct CanceledOrder {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct PositionRisk {
+    pub symbol: String,
     #[serde(with = "string_or_float", rename = "positionAmt")]
     pub position_amount: f64,
+    #[serde(with = "string_or_float")]
+    pub notional: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

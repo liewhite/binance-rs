@@ -100,7 +100,9 @@ pub enum Futures {
 pub enum Portfolio {
     PositionRisk,
     Order,
-    Balance
+    Balance,
+    Income
+
 }
 
 impl From<API> for String {
@@ -183,6 +185,7 @@ impl From<API> for String {
                     Portfolio::PositionRisk => "/papi/v1/um/positionRisk",
                     Portfolio::Order => "/papi/v1/um/order",
                     Portfolio::Balance => "/papi/v1/balance",
+                    Portfolio::Income => "/papi/v1/um/income",
                 }
             },
         })

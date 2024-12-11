@@ -554,12 +554,9 @@ impl PortfolioAccount {
         parameters
     }
 
-    pub fn position_information<S>(&self, symbol: S) -> Result<Vec<PositionRisk>>
-    where
-        S: Into<String>,
-    {
-        let mut parameters = BTreeMap::new();
-        parameters.insert("symbol".into(), symbol.into());
+    pub fn position_information(&self) -> Result<Vec<PositionRisk>> {
+        let parameters = BTreeMap::new();
+        // parameters.insert("symbol".into(), symbol.into());
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
@@ -686,8 +683,7 @@ impl PortfolioAccount {
         }
 
         let request = build_signed_request(parameters, self.recv_window)?;
-        println!("{}", request);
         self.client
-            .get_signed(API::Futures(Futures::Income), Some(request))
+            .get_signed(API::Portfolio(Portfolio::Income), Some(request))
     }
 }
