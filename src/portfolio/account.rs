@@ -503,7 +503,7 @@ impl PortfolioAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::UserTrades), Some(request))
+            .get_signed(API::Portfolio(Portfolio::UserTrades), Some(request))
     }
     fn build_order(&self, order: OrderRequest) -> BTreeMap<String, String> {
         let mut parameters = BTreeMap::new();

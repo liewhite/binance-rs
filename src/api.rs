@@ -101,8 +101,8 @@ pub enum Portfolio {
     PositionRisk,
     Order,
     Balance,
-    Income
-
+    Income,
+    UserTrades
 }
 
 impl From<API> for String {
@@ -186,6 +186,7 @@ impl From<API> for String {
                     Portfolio::Order => "/papi/v1/um/order",
                     Portfolio::Balance => "/papi/v1/balance",
                     Portfolio::Income => "/papi/v1/um/income",
+                    Portfolio::UserTrades => "/papi/v1/um/userTrades",
                 }
             },
         })
