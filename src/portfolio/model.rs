@@ -296,6 +296,8 @@ pub struct PositionRisk {
     pub position_amount: f64,
     #[serde(with = "string_or_float")]
     pub notional: f64,
+    #[serde(with = "string_or_float")]
+    pub liquidation_price: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
