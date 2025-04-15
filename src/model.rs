@@ -1248,7 +1248,7 @@ pub struct DepthOrderBookEvent {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LoanData {
-    rows: Vec<LoanDataItem>,
+    pub rows: Vec<LoanDataItem>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
