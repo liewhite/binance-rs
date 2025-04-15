@@ -15,6 +15,7 @@
     clippy::semicolon_if_nothing_returned
 )]
 
+mod test;
 mod client;
 pub mod errors;
 pub mod util;

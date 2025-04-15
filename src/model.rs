@@ -1245,6 +1245,19 @@ pub struct DepthOrderBookEvent {
     #[serde(rename = "a")]
     pub asks: Vec<Asks>,
 }
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct LoanData {
+    rows: Vec<LoanDataItem>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct LoanDataItem {
+    pub loan_coin: String,
+    #[serde(with = "string_or_float")]
+    pub flexible_interest_rate: f64
+}
 
 /// Response to the Savings API get all coins request
 #[derive(Debug, Serialize, Deserialize, Clone)]

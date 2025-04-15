@@ -1,5 +1,7 @@
 use crate::util::build_signed_request;
-use crate::model::{AssetDetail, CoinInfo, DepositAddress, SpotFuturesTransferType, TransactionId};
+use crate::model::{
+    AssetDetail, CoinInfo, DepositAddress, LoanData, SpotFuturesTransferType, TransactionId,
+};
 use crate::client::Client;
 use crate::errors::Result;
 use std::collections::BTreeMap;
@@ -13,6 +15,14 @@ pub struct Savings {
 }
 
 impl Savings {
+    pub fn get_loan_data(&self, coin: &str) -> Result<LoanData> {
+        let mut parameters = BTreeMap::new();
+        parameters.insert("loanCoin".into(), coin.into());
+        let request = build_signed_request(parameters, self.recv_window)?;
+        self.client
+            .get_signed(API::Savings(Sapi::LoanData), Some(request))
+    }
+
     /// Get all coins available for deposit and withdrawal
     pub fn get_all_coins(&self) -> Result<Vec<CoinInfo>> {
         let request = build_signed_request(BTreeMap::new(), self.recv_window)?;
