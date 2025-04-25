@@ -124,6 +124,9 @@ pub enum Filters {
         min_trailing_below_delta: Option<u16>,
         max_trailing_below_delta: Option<u16>,
     },
+    #[serde(rename = "POSITION_RISK_CONTROL")]
+    #[serde(rename_all = "camelCase")]
+    PositionRiskControl {},
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -1256,7 +1259,7 @@ pub struct LoanData {
 pub struct LoanDataItem {
     pub loan_coin: String,
     #[serde(with = "string_or_float")]
-    pub flexible_interest_rate: f64
+    pub flexible_interest_rate: f64,
 }
 
 /// Response to the Savings API get all coins request
