@@ -32,6 +32,8 @@ use serde_json::Value;
 use crate::api::API;
 use crate::api::Futures;
 
+use super::model::FundingInfo;
+
 // TODO
 // Make enums for Strings
 // Add limit parameters to functions
@@ -44,6 +46,15 @@ pub struct FuturesMarket {
 }
 
 impl FuturesMarket {
+    pub fn get_funding_rate<S: Into<String>>(&self, symbol: S, limit: u64) -> Result<Vec<FundingInfo>> {
+        let mut parameters: BTreeMap<String, String> = BTreeMap::new();
+        parameters.insert("symbol".into(), symbol.into());
+        parameters.insert("limit".into(), limit.to_string());
+        let request = build_request(parameters);
+        self.client
+            .get(API::Futures(Futures::FundingRate), Some(request))
+    }
+
     // Order book (Default 100; max 1000)
     pub fn get_depth<S>(&self, symbol: S) -> Result<OrderBook>
     where
@@ -330,5 +341,3 @@ impl FuturesMarket {
             .get(API::Futures(Futures::OpenInterestHist), Some(request))
     }
 }
-
-

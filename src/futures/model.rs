@@ -37,6 +37,16 @@ pub struct Symbol {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct FundingInfo {
+    pub symbol: String,
+    #[serde(with = "string_or_float")]
+    pub funding_rate: f64,
+    pub funding_time: u64,
+
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct OrderBook {
     pub last_update_id: u64,
     // Undocumented

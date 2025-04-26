@@ -13,3 +13,14 @@ pub fn test_get_continuous_klines() {
         }
     }
 }
+
+#[test]
+pub fn test_get_funding_rate() {
+    use crate::{api::Binance, futures::market::FuturesMarket};
+
+    let cli: FuturesMarket = Binance::new(None, None);
+    let funding_rate = cli.get_funding_rate("ETHUSDT", 10).unwrap();
+    for rate in funding_rate {
+        println!("ts: {}, rate: {}", rate.funding_time, rate.funding_rate);
+    }
+}
